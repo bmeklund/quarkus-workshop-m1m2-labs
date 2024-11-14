@@ -11,8 +11,8 @@ fi
 echo Your username is $USERXX
 echo Deploy people service........
 
-oc project $USERXX-project
-oc delete dc,deployment,bc,build,svc,route,pod,is --all
+oc project $USERXX
+oc delete deployment,bc,build,svc,route,pod,is -l name=people
 
 echo "Waiting 30 seconds to finialize deletion of resources..."
 sleep 30
@@ -23,4 +23,4 @@ cp $PROJECT_SOURCE/scripts/application.properties $PROJECT_SOURCE/src/main/resou
 
 sed -i "s/USERXX/${USERXX}/g" $PROJECT_SOURCE/src/main/resources/application.properties
 
-mvn clean package -Pnative -DskipTests
+mvn clean package -Pnative -Dquarkus.native.native-image-xmx=3g -DskipTests

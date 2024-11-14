@@ -1,10 +1,9 @@
 schemaVersion: 2.2.0
 metadata:
   name: quarkus-workshop
-attributes:
-  controller.devfile.io/storage-type: ephemeral
 components:
-  - container:
+  - name: quarkus-tools
+    container:
       cpuLimit: 2000m
       cpuRequest: 500m
       endpoints:
@@ -45,7 +44,13 @@ components:
       image: quay.io/openshiftlabs/quarkus-workshop-stack:3.13
       memoryLimit: 6Gi
       memoryRequest: 4Gi
-    name: quarkus-tools
+      mountSources: true
+      volumeMounts:
+        - name: m2
+          path: /home/jboss/.m2
+  - name: m2
+    volume:
+      size: 3Gi
 commands:
   - id: 01-run-tests
     exec:
