@@ -73,7 +73,7 @@ commands:
     exec:
       label: 04. Build Native App
       component: quarkus-tools
-      commandLine: mvn package -Pnative -DskipTests
+      commandLine: mvn package -Pnative -DskipTests -Dquarkus.native.native-image-xmx=2g
   - id: 05-run-fast-jar
     exec:
       label: 05. Run Fast Jar
